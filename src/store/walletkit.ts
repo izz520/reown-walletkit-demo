@@ -1,14 +1,35 @@
+import type { SignClientTypes } from "@walletconnect/types";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface WalletKitStore {
   isInited: boolean;
+  approveProposal:
+    | SignClientTypes.EventArguments["session_proposal"]
+    | undefined;
+  signatureProposal:
+    | SignClientTypes.EventArguments["session_request"]
+    | undefined;
   setIsInited: (isInited: boolean) => void;
+  setApproveProposal: (
+    proposal: SignClientTypes.EventArguments["session_proposal"]
+  ) => void;
+  setSignatureProposal: (
+    proposal: SignClientTypes.EventArguments["session_request"]
+  ) => void;
 }
 
 const store = create<WalletKitStore>((set) => ({
   isInited: false,
-  setIsInited: (isInited: boolean) => set({ isInited })
+  approveProposal: undefined,
+  signatureProposal: undefined,
+  setIsInited: (isInited: boolean) => set({ isInited }),
+  setApproveProposal: (
+    proposal: SignClientTypes.EventArguments["session_proposal"]
+  ) => set({ approveProposal: proposal }),
+  setSignatureProposal: (
+    proposal: SignClientTypes.EventArguments["session_request"]
+  ) => set({ signatureProposal: proposal })
 }));
 
 export const setIsInited = (isInited: boolean) => {

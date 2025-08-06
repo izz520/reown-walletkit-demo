@@ -9,14 +9,6 @@ const Wc = () => {
   const { isInited } = useWalletkitStore();
   const [searchParams] = useSearchParams();
 
-  const _pairWithUri = async (uri: string | null) => {
-    if (uri && walletkit) {
-      console.log("🚀 ~ useEffect ~ uri:", uri);
-      walletkit.pair({ uri });
-      console.log("connect pair");
-    }
-  };
-
   async function onConnect(uri: string) {
     const { topic: pairingTopic } = parseUri(uri);
     console.log("🚀 ~ onConnect ~ pairingTopic:", pairingTopic);
@@ -44,6 +36,7 @@ const Wc = () => {
         pairingExpiredListener
       );
       await walletkit.pair({ uri });
+      console.log("🚀 ~ onConnect ~ walletkit pair finish");
     } catch (error) {
       console.log("err", error);
     } finally {

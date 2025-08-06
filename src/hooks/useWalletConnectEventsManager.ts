@@ -1,14 +1,18 @@
 import type { SignClientTypes } from "@walletconnect/types";
 import { useCallback, useEffect } from "react";
+import { hexToString } from "viem";
 import { walletkit } from "@/libs/initWalletKit";
+import { useWalletkitStore } from "@/store/walletkit";
 
 export default function useWalletConnectEventsManager(initialized: boolean) {
+  const { setApproveProposal, setSignatureProposal } = useWalletkitStore();
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
    *****************************************************************************/
   const onSessionProposal = useCallback(
     (proposal: SignClientTypes.EventArguments["session_proposal"]) => {
       console.log("session_proposal", proposal);
+      setApproveProposal(proposal);
       // set the verify context so it can be displayed in the projectInfoCard
       // SettingsStore.setCurrentRequestVerifyContext(proposal.verifyContext);
       // ModalStore.open("SessionProposalModal", { proposal });
@@ -25,6 +29,15 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
       // const { request } = params
       // const requestSession = walletkit.engine.signClient.session.get(topic)
       console.log("session_request", requestEvent);
+      const { params } = requestEvent;
+      const { request } = params;
+      const { method } = request;
+      if (method === "personal_sign") {
+        const requestParamsMessage = request.params[0];
+        const message = hexToString(requestParamsMessage);
+        setSignatureProposal(requestEvent);
+        console.log("personal_sign", message);
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

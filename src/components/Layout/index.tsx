@@ -4,6 +4,8 @@ import { Outlet } from "react-router";
 import useInitialization from "@/hooks/useInitialization";
 import useWalletConnectEventsManager from "@/hooks/useWalletConnectEventsManager";
 import { walletkit } from "@/libs/initWalletKit";
+import LoginModal from "../Modal/LoginModal";
+import SignatureModal from "../Modal/SignatureModal";
 
 const Layout = () => {
   // useWallet();
@@ -25,7 +27,13 @@ const Layout = () => {
       // styledToast('Network connection lost.', 'error')
     });
   }, [initialized]);
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <LoginModal />
+      <SignatureModal />
+    </>
+  );
 };
 
 export default Layout;
