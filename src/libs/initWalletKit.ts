@@ -44,7 +44,8 @@ export async function updateSignClientChainId(
   const sessions = walletkit.getActiveSessions();
   if (!sessions) return;
   const namespace = chainId.split(":")[0];
-  Object.values(sessions).forEach(async (session) => {
+
+  const sessionPromises = Object.values(sessions).map(async (session) => {
     await walletkit.updateSession({
       topic: session.topic,
       namespaces: {
@@ -90,4 +91,6 @@ export async function updateSignClientChainId(
     await walletkit.emitSessionEvent(chainChanged);
     await walletkit.emitSessionEvent(accountsChanged);
   });
+
+  await Promise.all(sessionPromises);
 }
