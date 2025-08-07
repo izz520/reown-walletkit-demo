@@ -56,7 +56,7 @@ const SignatureModal = () => {
   };
   return (
     <BaseModal
-      title="Sign message"
+      title="Sign Message"
       open={open}
       onClose={() => setOpen(false)}
       onConfirm={handleConfirm}

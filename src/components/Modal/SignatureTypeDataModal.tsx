@@ -56,7 +56,7 @@ const SignatureTypeDataModal = () => {
   };
   return (
     <BaseModal
-      title="Sign message"
+      title="Sign TypeData Message"
       open={open}
       onClose={() => setOpen(false)}
       onConfirm={handleConfirm}

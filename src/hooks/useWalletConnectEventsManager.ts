@@ -8,7 +8,8 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
   const {
     setApproveProposal,
     setSignatureProposal,
-    setSignatureTypeDataProposal
+    setSignatureTypeDataProposal,
+    setSendTransactionProposal
   } = useWalletkitStore();
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
@@ -46,6 +47,11 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
         const requestParamsMessage = request.params[1];
         console.log("requestParamsMessage", JSON.parse(requestParamsMessage));
         setSignatureTypeDataProposal(requestEvent);
+      }
+      if (method === "eth_sendTransaction") {
+        const transaction = request.params[0];
+        console.log("transaction", transaction);
+        setSendTransactionProposal(requestEvent);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

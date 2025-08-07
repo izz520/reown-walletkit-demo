@@ -71,7 +71,7 @@ const LoginModal = () => {
   };
   return (
     <BaseModal
-      title="Login to your account"
+      title="Login To Your Account"
       open={open}
       onClose={() => setOpen(false)}
       onConfirm={handleConfirm}
