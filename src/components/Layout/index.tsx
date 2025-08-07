@@ -6,6 +6,7 @@ import useWalletConnectEventsManager from "@/hooks/useWalletConnectEventsManager
 import { walletkit } from "@/libs/initWalletKit";
 import LoginModal from "../Modal/LoginModal";
 import SignatureModal from "../Modal/SignatureModal";
+import SignatureTypeDataModal from "../Modal/SignatureTypeDataModal";
 
 const Layout = () => {
   // useWallet();
@@ -32,6 +33,7 @@ const Layout = () => {
       <Outlet />
       <LoginModal />
       <SignatureModal />
+      <SignatureTypeDataModal />
     </>
   );
 };

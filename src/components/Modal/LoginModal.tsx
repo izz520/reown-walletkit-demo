@@ -1,6 +1,7 @@
 import { buildApprovedNamespaces, getSdkError } from "@walletconnect/utils";
 import { useEffect, useState } from "react";
 import { account } from "@/contract/account";
+import { supportedChainId } from "@/contract/chain";
 import { walletkit } from "@/libs/initWalletKit";
 import { useWalletkitStore } from "@/store/walletkit";
 import BaseModal from "./Base";
@@ -14,21 +15,29 @@ const LoginModal = () => {
   }, [approveProposal]);
 
   const handleConfirm = async () => {
+    const accounts = supportedChainId.map(
+      (chain) => `${chain}:${account.address}`
+    );
+
     const approvedNamespaces = buildApprovedNamespaces({
       proposal: approveProposal?.params as any,
       supportedNamespaces: {
         eip155: {
-          chains: ["eip155:1", "eip155:137"],
+          chains: supportedChainId,
           methods: [
             "eth_sendTransaction",
             "personal_sign",
-            "wallet_switchEthereumChain"
+            "wallet_switchEthereumChain",
+            "eth_signTypedData_v4"
           ],
-          events: ["accountsChanged", "chainChanged"],
-          accounts: [
-            `eip155:1:${account.address}`,
-            `eip155:137:${account.address}`
-          ]
+          events: [
+            "chainChanged",
+            "accountsChanged",
+            "message",
+            "disconnect",
+            "connect"
+          ],
+          accounts: accounts
         }
       }
     });
@@ -39,7 +48,7 @@ const LoginModal = () => {
     });
     console.log("login success", window.opener);
     const targetUrl = approveProposal?.params?.proposer?.metadata.url;
-    console.log("🚀 ~ handleReject ~ targetUrl:", targetUrl);
+    console.log("🚀 ~ handleConfirm ~ targetUrl:", targetUrl);
     if (targetUrl) {
       window.location.href = targetUrl;
       window.close();

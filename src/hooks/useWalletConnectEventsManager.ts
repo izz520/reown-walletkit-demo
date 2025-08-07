@@ -5,7 +5,11 @@ import { walletkit } from "@/libs/initWalletKit";
 import { useWalletkitStore } from "@/store/walletkit";
 
 export default function useWalletConnectEventsManager(initialized: boolean) {
-  const { setApproveProposal, setSignatureProposal } = useWalletkitStore();
+  const {
+    setApproveProposal,
+    setSignatureProposal,
+    setSignatureTypeDataProposal
+  } = useWalletkitStore();
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
    *****************************************************************************/
@@ -37,6 +41,11 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
         const message = hexToString(requestParamsMessage);
         setSignatureProposal(requestEvent);
         console.log("personal_sign", message);
+      }
+      if (method === "eth_signTypedData_v4") {
+        const requestParamsMessage = request.params[1];
+        console.log("requestParamsMessage", JSON.parse(requestParamsMessage));
+        setSignatureTypeDataProposal(requestEvent);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

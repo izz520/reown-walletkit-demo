@@ -10,11 +10,17 @@ interface WalletKitStore {
   signatureProposal:
     | SignClientTypes.EventArguments["session_request"]
     | undefined;
+  signatureTypeDataProposal:
+    | SignClientTypes.EventArguments["session_request"]
+    | undefined;
   setIsInited: (isInited: boolean) => void;
   setApproveProposal: (
     proposal: SignClientTypes.EventArguments["session_proposal"]
   ) => void;
   setSignatureProposal: (
+    proposal: SignClientTypes.EventArguments["session_request"]
+  ) => void;
+  setSignatureTypeDataProposal: (
     proposal: SignClientTypes.EventArguments["session_request"]
   ) => void;
 }
@@ -23,13 +29,17 @@ const store = create<WalletKitStore>((set) => ({
   isInited: false,
   approveProposal: undefined,
   signatureProposal: undefined,
+  signatureTypeDataProposal: undefined,
   setIsInited: (isInited: boolean) => set({ isInited }),
   setApproveProposal: (
     proposal: SignClientTypes.EventArguments["session_proposal"]
   ) => set({ approveProposal: proposal }),
   setSignatureProposal: (
     proposal: SignClientTypes.EventArguments["session_request"]
-  ) => set({ signatureProposal: proposal })
+  ) => set({ signatureProposal: proposal }),
+  setSignatureTypeDataProposal: (
+    proposal: SignClientTypes.EventArguments["session_request"]
+  ) => set({ signatureTypeDataProposal: proposal })
 }));
 
 export const setIsInited = (isInited: boolean) => {
