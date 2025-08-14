@@ -9,7 +9,8 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
     setApproveProposal,
     setSignatureProposal,
     setSignatureTypeDataProposal,
-    setSendTransactionProposal
+    setSendTransactionProposal,
+    setWebsiteInfo
   } = useWalletkitStore();
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
@@ -34,9 +35,12 @@ export default function useWalletConnectEventsManager(initialized: boolean) {
       // const { request } = params
       // const requestSession = walletkit.engine.signClient.session.get(topic)
       console.log("session_request", requestEvent);
-      const { params } = requestEvent;
+      const { params, topic } = requestEvent;
       const { request } = params;
       const { method } = request;
+      const requestSession = walletkit?.engine?.signClient?.session?.get(topic);
+      const websiteInfo = requestSession?.peer?.metadata;
+      setWebsiteInfo(websiteInfo);
       if (method === "personal_sign") {
         const requestParamsMessage = request.params[0];
         const message = hexToString(requestParamsMessage);
