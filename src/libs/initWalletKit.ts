@@ -14,7 +14,7 @@ export async function createWalletKit() {
       metadata: {
         name: "MatchID",
         description: "MatchID",
-        url: "https://walletconnect.com/",
+        url: "https://matchid.io",
         icons: ["https://avatars.githubusercontent.com/u/37784886"]
       },
       signConfig: {
