@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./components/Layout";
 import Home from "./pages/home";
-import Wc from "./pages/wc";
+import Wc from "./pages/Wc";
 
 const AppRouter = () => {
   return (

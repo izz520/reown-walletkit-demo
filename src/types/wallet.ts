@@ -19,3 +19,10 @@ export interface ISendTransaction {
   nonce: bigint;
   chainId: number;
 }
+
+export interface WalletConnectProposalMetadata {
+  name: string;
+  description: string;
+  icons: string[];
+  url: string;
+}

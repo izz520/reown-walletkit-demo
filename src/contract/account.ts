@@ -11,7 +11,7 @@ const account = privateKeyToAccount(privateKey);
 const createClient = (chainId: string) => {
   return createWalletClient({
     account: account,
-    chain: supportedChains[chainId as keyof typeof supportedChains],
+    chain: supportedChains[chainId as keyof typeof supportedChains].config,
     transport: http()
   });
 };

@@ -26,12 +26,14 @@ export async function createWalletKit() {
       await walletkit.engine.signClient.core.crypto.getClientId();
     console.log("WalletConnect ClientID: ", clientId);
     localStorage.setItem("WALLETCONNECT_CLIENT_ID", clientId);
+    return true;
   } catch (error) {
     console.error(
       "Failed to set WalletConnect clientId in localStorage: ",
       error
     );
     setIsInited(false);
+    return false;
   }
 }
 

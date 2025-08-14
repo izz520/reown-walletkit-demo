@@ -4,10 +4,6 @@ import { Outlet } from "react-router";
 import useInitialization from "@/hooks/useInitialization";
 import useWalletConnectEventsManager from "@/hooks/useWalletConnectEventsManager";
 import { walletkit } from "@/libs/initWalletKit";
-import LoginModal from "../Modal/LoginModal";
-import SendTransactionModal from "../Modal/SendTransactionModal";
-import SignatureModal from "../Modal/SignatureModal";
-import SignatureTypeDataModal from "../Modal/SignatureTypeDataModal";
 
 const Layout = () => {
   // useWallet();
@@ -32,10 +28,10 @@ const Layout = () => {
   return (
     <>
       <Outlet />
-      <LoginModal />
-      <SignatureModal />
-      <SignatureTypeDataModal />
-      <SendTransactionModal />
+      {/* <LoginModal /> */}
+      {/* <SignatureModal /> */}
+      {/* <SignatureTypeDataModal /> */}
+      {/* <SendTransactionModal /> */}
     </>
   );
 };
